@@ -13,7 +13,8 @@ from logic_ml.preprocessing import get_image
 import matplotlib.pyplot as plt
 
 st.markdown("""# Designing a Facial Emotion Recognition model
-## Want a new set of pictures?""")
+## Want a new set of pictures?
+### Move the cursor and observe""")
 
 df = pd.DataFrame({
     'first column': list(range(1, 11)),
@@ -71,6 +72,7 @@ def function_emotion(emotion):
     label = (df_emotion['label'][my_random_df_emotion])
     return image,label
 
+image_sad, label_sad = function_emotion('sad')
 
 def get_my_images_and_their_label(labels):
     """
@@ -109,3 +111,44 @@ def tourner_en_boucle(image, label):
     return a
 
 #tourner_en_boucle(image_neutral, label_neutral)
+
+
+_LOREM_IPSUM = """
+Lorem ipsum dolor sit amet, **consectetur adipiscing** elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+"""
+
+
+def stream_data(lorem_ipsum):
+    for word in lorem_ipsum.split(" "):
+        yield word + " "
+        time.sleep(0.5)
+
+    # yield pd.DataFrame(
+    #     np.random.randn(5, 10),
+    #     columns=["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"],
+    # )
+
+    for word in lorem_ipsum.split(" "):
+        yield word + " "
+        time.sleep(0.02)
+    return st.write(stream_data)
+
+
+st.text((_LOREM_IPSUM ))
+
+def stream_image(my_images):
+    for image in my_images:
+        yield image
+        time.sleep(0.5)
+
+    # yield pd.DataFrame(
+    #     np.random.randn(5, 10),
+    #     columns=["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"],
+    # )
+
+    return image
+
+
+stream_image(my_images)
