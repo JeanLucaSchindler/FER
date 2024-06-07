@@ -26,46 +26,6 @@ It was constructed with the following layers:
 - Dense(8)
 
 
-## Third step - Transfer Learning
-Select 4 pre-trained models that could help in fulfilling our task. These are the following:
-- ResNet50V2
-- Inception-ResNet
-- Inception V3
-- VGG19
-
-
-### Why ResNet?
---> one of the most widely used and effective deep learning models to date
---> Architecture design is inspired on VGG-19 and has a 34-layer plain network to which shortcut and skip connections are added.
---> uses **a lot of batch-normalization** to let it train hundreds of layers successfully without sacrificing speed over time.
-  --> also why we added a layer of BatchNormalization() in our model
-
-#### Why ResNet50V2?
---> depth of 103 and 50 trainable layers, of which 50 have tunable weights (48 convolution layers, 1 maximum pooling, and 1 average pooling layer).
---> residual network because it is known to overcome the “vanishing gradient problem.”, by using “skip connections” which allow the gradient to flow unhindered, making it possible to construct a network of many deep layers of convolutional layers with efficiency.
-
-
-### Why Inception?
---> utilised for a variety of computer vision applications, including face detection and identification, adversarial training.
-  --> made up of nine inception modules stacked on top of each other, with **max-pooling layers** between them.
---> all layers are followed by a batchnorm and ReLU nonlinearity.
-
-#### Why Inception V3?
---> lowering the computational cost of deep networks without sacrificing generalisation.
---> Inception-V3 employs a 1x1 convolutional operation, which divides the input data into three or four smaller 3D spaces, and then maps all correlations in these smaller 3D spaces using standard (3x3 or 5x5) convolutions.
-
-### Why Inception-ResNet?
---> lowering the computational cost of deep networks without sacrificing generalisation.
---> nception-V4 with residual connections (Inception-ResNet) has the same generalisation capacity as plain InceptionV4, but with more depth and width. They did notice, however, that Inception-ResNet converges faster than Inception-V4, indicating that training Inception networks with residual connections speeds up the process dramatically.
-
-### Why VGG?
---> defined by its simplicity, with simply pooling layers and a fully linked layer as additional components.
---> 19 layers deep to replicate the relationship between depth and network representational capability.
---> Small 3 x 3 filters are used in the network.
-
-
-"""based upon article : https://iq.opengenus.org/different-types-of-cnn-models/"""
-
 
 ## Fourth step - Initialize models and start fine-tuning them
 
