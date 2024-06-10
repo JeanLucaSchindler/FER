@@ -1,38 +1,23 @@
-from logic_ml.preprocessing import preproc_train, get_image, preproc
-from logic_ml.preprocessing import label_categorize
-from logic_ml.ResNet50V2 import load_model, add_last_layers, finetuning, callbacks, fit_model, eval_model, predict_model
-import pandas as pd
+from logic_ml.preprocessing import process_image, decode_predictions, image_with_bounding_boxes
+from tensorflow.keras import models
+import os
 
 if __name__ == '__main__':
-    data = pd.read_csv('/Users/marinelegall/code/marinoulg/FER_Project/FER/raw_data/labels.csv')
 
-    path = 'raw_data/'+data['pth']
+    image_path = os.path.join(os.path.dirname(os.getcwd()),'IMG_20240610_095656.jpg')
 
-    get_image(path)
+    #PREPORCESS INPUT IMAGE
+    X_image, boxes = process_image(image_path)
 
+    # GET FER PREDICTIONS
+    fer_model = models.load_model('models_trained/ResNet50V2_my_model_VM.h5')
 
-    #preprocessing trainning data
-    X_train, y_train = preproc_train()
-    y_cat = label_categorize(y_train)
+    predictions = fer_model.predict(X_image)
 
-    preproc(path)
+    #UPDATE ORIGINAL PHOTO WITH BOUNDING BOXES AND EMOTION LABEL
 
-    # Loading model
-    model = load_model(X_train)
+    labels = decode_predictions(predictions)
 
-    # Adding last layers
-    model = add_last_layers(model)
+    output_path = 'image_output.jpg'
 
-    model.summary()
-
-    # compile and finetuning model
-    model = finetuning(model, LR=0.001)
-
-    #callbacks = EarlyStopping and LReduceOnPlateau
-    my_callbacks = callbacks()
-
-    fit_model(model, my_callbacks)
-
-    eval_model(model)
-
-    predict_model(model)
+    image_with_bounding_boxes(image_path, boxes, labels, output_path)
