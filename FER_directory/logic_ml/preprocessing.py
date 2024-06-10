@@ -5,6 +5,7 @@ from tensorflow.keras.utils import to_categorical
 import os
 from sklearn.preprocessing import LabelEncoder
 import cv2
+import io
 import mediapipe as mp
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
@@ -72,9 +73,9 @@ def define_faces(image_path):
     # Initialize MediaPipe Face Detection
     mp_face_detection = mp.solutions.face_detection
 
-    image = cv2.imread(image_path)
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    ih, iw, _ = image.shape
+    # image = cv2.imread(image_path)
+    image = cv2.cvtColor(image_path, cv2.COLOR_BGR2RGB)
+    ih, iw, _ = image_path.shape
     # Initialize an empty list to store bounding box coordinates.
     bounding_boxes = []
 
@@ -103,8 +104,8 @@ def define_faces(image_path):
 
     return bounding_boxes
 
-def preproc_initial_image(image_path):
-    image = Image.open(image_path)
+def preproc_initial_image(image):
+    # image = Image.open(image_path)
     return np.array(image)
 
 def crop_image(image, boxes):
@@ -128,7 +129,7 @@ def process_image(image_path):
     img = preproc_initial_image(image_path)
 
     # Define faces
-    boxes = define_faces(image_path)
+    boxes = define_faces(img)
 
     # Crop and resize faces
     faces = crop_image(img, boxes)
@@ -159,7 +160,7 @@ def decode_predictions(predictions):
 
     return labels
 
-def image_with_bounding_boxes(image_path, bounding_boxes, texts, output_path):
+def image_with_bounding_boxes(image_path, bounding_boxes, texts):
     """
     Plots an image with bounding boxes and texts, and saves the final image as a JPEG file.
 
@@ -170,13 +171,13 @@ def image_with_bounding_boxes(image_path, bounding_boxes, texts, output_path):
     - output_path: str, path to save the output image
     """
     # Load the image
-    image = Image.open(image_path)
+    # image = Image.open(image_path)
 
     # Create a Matplotlib figure and axis
     fig, ax = plt.subplots(1)
 
     # Display the image
-    ax.imshow(image)
+    ax.imshow(image_path)
 
     # Plot each bounding box
     for i, (x1, y1, x2, y2) in enumerate(bounding_boxes):
@@ -192,8 +193,14 @@ def image_with_bounding_boxes(image_path, bounding_boxes, texts, output_path):
     # Remove axis for better visualization
     ax.axis('off')
 
-    # Save the final image as a JPEG file
-    plt.savefig(output_path, bbox_inches='tight', pad_inches=0, format='jpeg')
+    # # Save the final image as a JPEG file
 
+    buf = io.BytesIO()
+    plt.savefig(buf, format='jpeg', bbox_inches='tight', pad_inches=0)
+    plt.close(fig)
     # Show the plot with bounding boxes and texts
-    # plt.show()
+
+    buf.seek(0)
+    img_with_boxes = Image.open(buf)
+
+    return img_with_boxes
