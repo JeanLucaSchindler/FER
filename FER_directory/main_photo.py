@@ -1,12 +1,12 @@
-from logic_ml.preprocessing import process_image, decode_predictions, image_with_bounding_boxes
+from logic_ml.preprocessing_photo import process_image, decode_predictions, image_with_bounding_boxes
 from tensorflow.keras import models
 import os
 
 if __name__ == '__main__':
 
-    image_path = os.path.join(os.path.dirname(os.getcwd()),'IMG_20240610_095656.jpg')
+    image_path = 'test.jpg'
 
-    #PREPORCESS INPUT IMAGE
+    #PREPROCESS INPUT IMAGE
     X_image, boxes = process_image(image_path)
 
     # GET FER PREDICTIONS

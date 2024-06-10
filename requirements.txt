@@ -1,9 +1,7 @@
 #list of dependencies
-<<<<<<< HEAD
 altair<5
 =======
 altair==4.2.0
->>>>>>> 1084ccaee810a8ec2252e11e43b3e84fbc2d020b
 anyio==4.4.0
 appnope==0.1.4
 argon2-cffi==23.1.0
