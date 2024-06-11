@@ -90,7 +90,7 @@ def emotions_1672():
     for label in labels_df:
         emotion = df[df['label'] == label].reset_index()
         my_random_emotion = random.choice(emotion.index)
-        image_path = '../../#1672-data-set/' + emotion.loc[my_random_emotion, 'pth']
+        image_path = '../../../#1672-data-set/' + emotion.loc[my_random_emotion, 'pth']
         image = Image.open(image_path)
         current_images.append(image)
         current_captions.append(label)
@@ -104,7 +104,7 @@ def emotions_1672():
             if random.random() < 0.5 and current_images[i] is not None:  # 50% chance to change the image
                 emotion = df[df['label'] == label].reset_index()
                 my_random_emotion = random.choice(emotion.index)
-                image_path = '../../#1672-data-set/' + emotion.loc[my_random_emotion, 'pth']
+                image_path = '../../../#1672-data-set/' + emotion.loc[my_random_emotion, 'pth']
                 image = Image.open(image_path)
                 new_images.append(image)
                 new_captions.append(label)
