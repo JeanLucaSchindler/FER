@@ -1,9 +1,6 @@
 #list of dependencies
-<<<<<<< HEAD
 altair<5
-=======
 altair==4.2.0
->>>>>>> 1084ccaee810a8ec2252e11e43b3e84fbc2d020b
 anyio==4.4.0
 appnope==0.1.4
 argon2-cffi==23.1.0
@@ -28,6 +25,8 @@ defusedxml==0.7.1
 dill==0.3.8
 exceptiongroup==1.2.1
 executing==2.0.1
+fastapi==0.111.0
+fastapi-cli==0.0.4
 fastjsonschema==2.19.1
 fonttools==4.53.0
 fqdn==1.5.1
@@ -108,8 +107,8 @@ six==1.16.0
 sniffio==1.3.1
 soupsieve==2.5
 stack-data==0.6.3
-streamlit==1.11.1
-tensorflow-macos==2.10.0
+streamlit>1.11.1
+tensorflow==2.16.1
 terminado==0.18.1
 threadpoolctl==3.5.0
 tinycss2==1.3.0
@@ -126,3 +125,10 @@ wcwidth==0.2.13
 webcolors==1.13
 webencodings==0.5.1
 websocket-client==1.8.0
+#last added
+mediapipe==0.10.14
+opencv-contrib-python==4.10.0.82
+opencv-python==4.10.0.82
+opencv-python-headless==4.10.0.82
+h5py==3.10.0
+wheel==0.43.0
