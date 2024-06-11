@@ -38,3 +38,4 @@ It was constructed with the following layers:
 - base_model.trainable = False Finally during training, we will freeze the base_model layers, these layers won’t be trainable and the weights of those layers won’t be updated. This way we avoid destroying any of the information the model contains during future training rounds, and this way higher accuracy can be achieved even for smaller datasets. We will be adding a few new, trainable layers on top of the frozen layers. They will learn to turn the old features into predictions on a new dataset.
 
 Result: the two best models in terms of both accuracy/val_accuracy and the threshold between loss and accuracy were: 1) ResNet50V2; 2) Inception-ResNet.
+# FER_streamlit
