@@ -10,6 +10,10 @@ from FER_directory.logic_ml.preprocessing_video import annotate_frame_with_boxes
 import tempfile
 import os
 
+from keras.src.applications.inception_resnet_v2 import CustomScaleLayer
+from keras.src.layers.layer import Layer
+from tensorflow.keras import models
+
 app = FastAPI()
 
 @app.post('/upload_image')
@@ -25,10 +29,10 @@ async def receive_image(img: UploadFile = File(...)):
 
     # GET FER PREDICTIONS
     path_model = os.path.dirname(os.path.dirname(os.getcwd()))
-    path_model = os.path.join(path_model,'models_trained/ResNet50V2_my_model_VM.h5')
+    path_model = os.path.join(path_model,'models_trained/model_chelou.h5')
 
-    fer_model = models.load_model(path_model)
-    predictions = fer_model.predict(X_image)
+    fer_model = models.load_model(path_model, custom_objects={'CustomScaleLayer': CustomScaleLayer})
+    predictions = fer_model.predict(X_image/255)
 
     #UPDATE ORIGINAL PHOTO WITH BOUNDING BOXES AND EMOTION LABEL
 
@@ -62,8 +66,8 @@ async def receive_video(vid: UploadFile = File(...)):
     out = cv2.VideoWriter(out_path, fourcc, 20.0, (int(cap.get(3)), int(cap.get(4))))
 
     # Load the pre-trained model
-    path_model = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), 'models_trained', 'ResNet50V2_my_model_VM.h5')
-    fer_model = models.load_model(path_model)
+    path_model = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), 'models_trained', 'model_chelou.h5')
+    fer_model = models.load_model(path_model, custom_objects={'CustomScaleLayer': CustomScaleLayer})
 
     frame_count = 0
     last_predictions = None
@@ -78,7 +82,7 @@ async def receive_video(vid: UploadFile = File(...)):
         if frame_count % 16 == 0:
             faces, boxes = process_image(frame)
             if faces.size != 0:
-                predictions = fer_model.predict(faces)
+                predictions = fer_model.predict(faces/255)
                 labels = decode_predictions(predictions)
                 last_predictions = labels
                 last_boxes = boxes
