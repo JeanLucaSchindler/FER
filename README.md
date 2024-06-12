@@ -8,22 +8,22 @@ The following repository is a real-time face detection and emotion classificatio
 
 The face detection is powered by [Mediapipe](https://ai.google.dev/edge/mediapipe/solutions/guide).
 
-The emotion classification model is a built on an CNN architecture called Inception Resnet V2 with weights retrained on a subsample of the Affectnet Dataset.
+The emotion classification model is a built on an CNN architecture called Inception-Resnet-V2 with weights retrained on a subsample of the Affectnet Dataset.
 
 ## The dataset: AffectNet
 The dataset used to train the model was a subsample of the AffectNet dataset downloaded from Kaggle at this [link](https://www.kaggle.com/datasets/noamsegal/affectnet-training-data).
 
 <p align="center">
-    <img src="https://www.researchgate.net/profile/Muhammad-Butt-49/publication/366207138/figure/fig3/AS:11431281110055526@1672294635575/Subsets-of-AffectNet-Dataset-for-skin-tone-and-gender-based-evaluationFirst-two-rows.ppm">
+    <img src="https://www.catalyzex.com/_next/image?url=https%3A%2F%2Fai2-s2-public.s3.amazonaws.com%2Ffigures%2F2017-08-08%2Fcb243d093ecd339eda05205b7b2035a4b66a63f3%2F1-Figure1-1.png&w=640&q=75">
 </p>
 
 It comprises 28 thousand images labeled into 8 different emotions. The dataset is balanced and images are of size 96x96.
 
 
-## The emotion classification model: Inception Resnet V2
-The best results stemmed from the Inception Resnet V2 architecture with an accuracy of 70% on the test set. The model architecture was imported from the [Keras library](https://keras.io/api/applications/inceptionresnetv2/).
+## The emotion classification model: Inception-Resnet-V2
+The best results stemmed from the Inception-Resnet-V2 architecture with an accuracy of 70% on the test set. The model architecture was imported from the [Keras library](https://keras.io/api/applications/inceptionresnetv2/).
 
-Prior to this model, we trained a customized CNN model (40% accuracy), and model with the ResNet50V2 architecture (63% accuracy).
+Prior to this model, we trained a customized CNN model (40% accuracy), and a model with the ResNet50V2 architecture (63% accuracy).
 
 
 <p align="center">
